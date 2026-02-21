@@ -1,0 +1,132 @@
+{
+  "version": "1.0.0",
+  "protocol": "zunau-tca-v1",
+  "description": "Zunau certified TCA protocol for SwiftUI. The AI modifies within allowed zones — never the core architecture.",
+  "swift_packages": [
+    {
+      "id": "tca",
+      "name": "ComposableArchitecture",
+      "url": "https://github.com/pointfreeco/swift-composable-architecture",
+      "version": "1.10.0",
+      "required": true,
+      "description": "TCA — The certified Swift architecture base"
+    }
+  ],
+  "mcps": [
+    {
+      "id": "supabase",
+      "name": "MCP Supabase",
+      "version": "1.0.0",
+      "status": "certified",
+      "tier": "required_if_auth",
+      "swift_package": {
+        "url": "https://github.com/supabase/supabase-swift",
+        "version": "2.0.0"
+      },
+      "modules": ["auth", "database", "realtime", "storage"],
+      "architecture_decisions": [
+        "profiles_table_separate_from_auth_users",
+        "service_role_edge_functions_only",
+        "rls_enabled_all_user_tables",
+        "apple_signin_name_first_time_handling",
+        "reconnect_on_mobile_disconnect"
+      ]
+    },
+    {
+      "id": "stripe",
+      "name": "MCP Stripe",
+      "version": "1.0.0",
+      "status": "certified",
+      "tier": "optional",
+      "swift_package": {
+        "native": "StoreKit 2"
+      },
+      "edge_functions": ["stripe-webhook"],
+      "architecture_decisions": [
+        "storekit2_ios_native",
+        "webhook_server_side_validation_only",
+        "subscription_status_in_profiles",
+        "stripe_connect_marketplace_ready"
+      ]
+    },
+    {
+      "id": "spline",
+      "name": "MCP Spline 3D",
+      "version": "1.0.0",
+      "status": "certified",
+      "tier": "optional",
+      "swift_package": {
+        "url": "https://github.com/splinetool/spline-swift",
+        "version": "1.0.0"
+      },
+      "architecture_decisions": [
+        "local_vs_cloud_auto_detection",
+        "metal_renderer_native",
+        "ram_optimization_mobile",
+        "graceful_fallback_on_load_error",
+        "visionos_compatible"
+      ]
+    },
+    {
+      "id": "lottie",
+      "name": "MCP Lottie",
+      "version": "1.0.0",
+      "status": "certified",
+      "tier": "optional",
+      "swift_package": {
+        "url": "https://github.com/airbnb/lottie-spm",
+        "version": "4.4.0"
+      },
+      "architecture_decisions": [
+        "bundle_small_animations_locally",
+        "stream_large_animations",
+        "dark_mode_adaptive",
+        "loop_mode_configurable"
+      ]
+    },
+    {
+      "id": "rive",
+      "name": "MCP Rive",
+      "version": "1.0.0",
+      "status": "certified",
+      "tier": "optional",
+      "swift_package": {
+        "url": "https://github.com/rive-app/rive-ios",
+        "version": "5.0.0"
+      },
+      "architecture_decisions": [
+        "state_machine_inputs_typed",
+        "trigger_actions_safe",
+        "artboard_switching_supported"
+      ]
+    },
+    {
+      "id": "figma",
+      "name": "MCP Figma → Swift",
+      "version": "0.9.0",
+      "status": "beta",
+      "tier": "optional",
+      "architecture_decisions": [
+        "design_tokens_to_swift_extensions",
+        "frame_to_swiftui_view",
+        "variables_to_state",
+        "assets_auto_exported",
+        "dark_mode_deduced"
+      ]
+    }
+  ],
+  "ai_zones": {
+    "allowed": [
+      "Feature reducers (State, Action, body)",
+      "SwiftUI Views",
+      "Custom models",
+      "API layer additions"
+    ],
+    "forbidden": [
+      "tca-base.swift — root architecture",
+      "MCP certified modules — never modified",
+      "Security policies — RLS rules",
+      "Webhook validation logic"
+    ]
+  }
+}
